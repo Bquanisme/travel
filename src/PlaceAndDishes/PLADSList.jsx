@@ -36,7 +36,7 @@ const ListItem = () => {
         const keyword = e.target.value;
         setSearch(keyword); 
         if (keyword === "") {
-            loadingData(baseData); 
+            loadingData(placedishBtn); 
         } else {
             const filteredSearch = placedishBtn.filter(item =>
                 item.title.toLowerCase().includes(keyword)
