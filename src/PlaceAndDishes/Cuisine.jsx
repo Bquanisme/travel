@@ -1,7 +1,7 @@
 import React from "react";
 import { Cuisines } from "./LeftData";
 
-const Cuisine = ({onChange}) => {
+const Cuisine = ({onChange, selectedCuisine}) => {
   // const testChecked = (e) => {
   //   console.log("event ===>", e.target.checked);
   // };
@@ -9,11 +9,14 @@ const Cuisine = ({onChange}) => {
   return (
     <div>
       {Cuisines.map((cui) => (
-        <div key={cui.id} className="changeCheckbox">
+        <form key={cui.id} className="changeCheckbox">
           <p>{cui.label}</p>
-          <input type="checkbox" onChange={(e) => onChange(cui.label.toLowerCase(), e.target.checked)}
+          <input 
+            type="checkbox" 
+            checked={selectedCuisine === cui.label.toLowerCase()} 
+            onChange={(e) => onChange(cui.label.toLowerCase(), e.target.checked)}
           />
-        </div>
+        </form>
       ))}
     </div>
   );

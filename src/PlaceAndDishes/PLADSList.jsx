@@ -10,9 +10,11 @@ import StarRating from "./StarRating";
 
 const ListItem = () => {
     const [all, setAll] = useState([])
+    const [baseData, setBaseData] = useState([]);
     const [search, setSearch] = useState()
     const [placedishBtn, setPlaceDishBtn] = useState([])
     const [cuisineCheck, setCuisineCheck] = useState([])
+    const [selectedCuisine, setSelectedCuisine] = useState(null);
     const [starCheck, setStarCheck] = useState([])
     const [loading, setLoading] = useState(true)
     const URL = 'https://62a00597a9866630f80561eb.mockapi.io/v1/tour'
@@ -34,7 +36,7 @@ const ListItem = () => {
         const keyword = e.target.value;
         setSearch(keyword); 
         if (keyword === "") {
-            loadingData(placedishBtn); 
+            loadingData(baseData); 
         } else {
             const filteredSearch = placedishBtn.filter(item =>
                 item.title.toLowerCase().includes(keyword)
@@ -79,23 +81,27 @@ const ListItem = () => {
         //cach lam gop (voi selectedCategory la props loc toan bo thong tin cua API)
         const filtered = placedishBtn.filter(dt => dt.category === selectedCategory)
         console.log(selectedCategory)
+        setBaseData(filtered);
         await loadingData(filtered); 
+        setCuisineCheck(filtered);
+        setStarCheck(filtered)
         setLoading(false);
     };
 
     const checkCuisine = async (label) => {
         setLoading(true);
-        const filtered = cuisineCheck.filter(item => item.cuisine === label);
+        const filtered = baseData.filter(item => item.cuisine === label);
+        setStarCheck(filtered)
         await loadingData(filtered);
         setLoading(false);
     };
 
     const handleCuisineChange = (value, checked) => {
+        setSelectedCuisine(checked ? value : null);
         if (checked) {
             checkCuisine(value);
-        } 
-        else {
-            loadingData(placedishBtn);
+        } else {
+            loadingData(baseData);
         }
     };
 
@@ -103,7 +109,9 @@ const ListItem = () => {
         setLoading(true)
         const filterStar = starCheck.filter(fil => fil.rating == star)
         console.log(filterStar)
+        setBaseData(filterStar);
         await loadingData(filterStar)
+        setCuisineCheck(filterStar)
         setLoading(false)
     }
 
@@ -133,7 +141,7 @@ const ListItem = () => {
                     <div>
                         <h3>Cuisine</h3>
                         <div className="cuisine">
-                            <Cuisine onChange={handleCuisineChange}/>
+                            <Cuisine selectedCuisine={selectedCuisine} onChange={handleCuisineChange}/>
                         </div>
                     </div>
                     <div>

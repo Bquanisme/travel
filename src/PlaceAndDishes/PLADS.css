@@ -37,6 +37,7 @@ body{
 
 .Category button:hover{
     background-color: lightgray;
+    cursor: pointer;
 }
 
 .Price-range{
@@ -61,6 +62,11 @@ body{
     border: solid 1px lightgrey;
 }
 
+.star-rating button:hover{
+    background-color: lightcyan;
+    cursor: pointer;
+}
+
 .box{
     display: flex;
 }
@@ -72,7 +78,7 @@ body{
 .box-search-and-load-right{
     width: 80%;
     display: flex;
-    justify-content: left;
+    justify-content: space-between;
 }
 
 .allboxes{
@@ -81,7 +87,7 @@ body{
     margin: 0;
     padding-left: 10px;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: left;
 }
 
 .box-size{
